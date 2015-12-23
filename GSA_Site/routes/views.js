@@ -35,34 +35,33 @@ router.get('/', function (req, res, next) {
         sections: []
     };
 
-    db.serialize(function() {
-        var isFirst = true;
-        var current = [];
-        var currentSection = null;
-        db.each('select rowid as id, header, content, section from homePage order by section asc', function(err, row) {
-            if (err)
-                throw err;
-            //console.log(row);
-            var info = {header: row.header, content: row.content};
+    var isFirst = true;
+    var current = [];
+    var currentSection = null;
+    db.query('select * from homePage order by section asc;', function(err, row, fields) {
+        if (err)
+            throw err;
+
+        for (var i in row) {
+            var item = row[i];
+            console.log(item);
             if (isFirst) {
-                dbOut.topSection = info;
+                dbOut.topSection = item;
                 isFirst = false;
             } else {
                 if (!currentSection) {
-                    currentSection = row.section;
+                    currentSection = item.section;
                 }
-                if (currentSection != row.section) {
-                    currentSection = row.section;
+                if (currentSection != item.section) {
+                    currentSection = item.section;
                     dbOut.sections.push(current);
                     current = [];
                 }
-                current.push(row);
+                current.push(item);
             }
-
-        }, function() {
-            dbOut.sections.push(current);
-            res.render('index', {title: 'Chattahoochee GSA', banner: "Chattahoochee Gay-Straight Alliance", nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
-        });
+        }
+        dbOut.sections.push(current);
+        res.render('index', {title: 'Chattahoochee GSA', banner: "Chattahoochee Gay-Straight Alliance", nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
     });
 
 });
@@ -73,3 +72,27 @@ router.get("/flags", function(req, res, next) {
 
 
 module.exports = router;
+
+//if (err)
+//    throw err;
+////console.log(row);
+//var info = {header: row.header, content: row.content};
+//if (isFirst) {
+//    dbOut.topSection = info;
+//    isFirst = false;
+//} else {
+//    if (!currentSection) {
+//        currentSection = row.section;
+//    }
+//    if (currentSection != row.section) {
+//        currentSection = row.section;
+//        dbOut.sections.push(current);
+//        current = [];
+//    }
+//    current.push(row);
+//}
+//
+//}, function() {
+//    dbOut.sections.push(current);
+//    res.render('index', {title: 'Chattahoochee GSA', banner: "Chattahoochee Gay-Straight Alliance", nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
+//}
