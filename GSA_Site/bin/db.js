@@ -6,4 +6,6 @@ var connection = mysql.createConnection({
     database : 'gsa_site'
 });
 
-module.exports = connection;
+module.exports.getDB = connection;
+
+//module.exports = connection;

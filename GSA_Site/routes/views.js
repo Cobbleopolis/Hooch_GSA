@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../bin/db');
+var db = require('../bin/db').getDB;
 var fs = require('fs');
 
 var nav = [
