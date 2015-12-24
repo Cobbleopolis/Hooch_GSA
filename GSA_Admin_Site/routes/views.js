@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../bin/db');
+var jwt = require('jsonwebtoken');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     res.render('index', {title: 'Express'});
+});
+
+router.get('/login', function (req, res, next) {
+    res.render('login', {title: 'Express'});
 });
 
 module.exports = router;
