@@ -2,11 +2,26 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='public/stylesheets/font-awesome.min.css')
-        link(href='http://fonts.googleapis.com/css?family=Ubuntu&subset=cyrillic,latin' rel='stylesheet' type='text/css')
         script(src="public/javascripts/jquery-2.1.4.min.js")
         script(src="public/javascripts/global.js")
+        link(rel='stylesheet', href='public/stylesheets/font-awesome.min.css')
+        link(href='http://fonts.googleapis.com/css?family=Ubuntu&subset=cyrillic,latin' rel='stylesheet' type='text/css')
         block head
 
     body
-        block content
+        div#nav
+            ul
+                if nav != undefined
+                    for item in nav
+                        a(href=item.link)
+                            li
+                                i(class="fa fa-" + item.icon)
+                                p= item.text
+        div#navButton
+            i.fa.fa-bars
+        div#content
+            div#banner
+                span= banner
+            div#pageContent
+                block content
+        div#overlay

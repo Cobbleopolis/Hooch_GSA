@@ -3,9 +3,22 @@ var router = express.Router();
 var db = require('../bin/db');
 var jwt = require('jsonwebtoken');
 
+var nav = [
+    {
+        text: 'Home',
+        icon: 'home',
+        link: '/'
+    },
+    {
+        text: 'Flags',
+        icon: 'flag',
+        link: '/flags'
+    }
+];
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'Express', nav: nav});
 });
 
 router.get('/login', function (req, res, next) {
