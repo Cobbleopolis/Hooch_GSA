@@ -2,7 +2,6 @@
 
 .contentSection
     border: solid 1px $borderColor
-        top: solid 2px $red
     border-radius: 0.28571429rem
     background: $brightBackgroundColor
     margin: 1rem
@@ -16,6 +15,9 @@
     p
         margin: 0
         padding: 0.75rem
+
+@include classColorVariants(contentSection, border-top, solid 2px, '')
+
 
 #topSection
     width: 100%

@@ -1,6 +1,6 @@
 body {
   font-family: Ubuntu;
-  background: #e0e0e0;
+  background: #E0E0E0;
   overflow-x: hidden; }
 
 #content {
@@ -9,8 +9,8 @@ body {
   top: 0;
   width: 100%;
   min-height: 100%;
-  background: #e0e0e0;
-  background: #e0e0e0; }
+  background: #E0E0E0;
+  background: #E0E0E0; }
 
 #overlay {
   content: "\a";
@@ -92,7 +92,6 @@ body {
 
 .contentSection {
   border: solid 1px rgba(34, 36, 38, 0.5);
-    border-top: solid 2px #DB2828;
   border-radius: 0.28571rem;
   background: white;
   margin: 1rem; }
@@ -106,6 +105,45 @@ body {
   .contentSection p {
     margin: 0;
     padding: 0.75rem; }
+
+.contentSection.red {
+  border-top: solid 2px #DB2828 ; }
+
+.contentSection.orange {
+  border-top: solid 2px #F2711C ; }
+
+.contentSection.yellow {
+  border-top: solid 2px #FBBD08 ; }
+
+.contentSection.olive {
+  border-top: solid 2px #B5CC18 ; }
+
+.contentSection.green {
+  border-top: solid 2px #21BA45 ; }
+
+.contentSection.teal {
+  border-top: solid 2px #00B5AD ; }
+
+.contentSection.blue {
+  border-top: solid 2px #2185D0 ; }
+
+.contentSection.violet {
+  border-top: solid 2px #6435C9 ; }
+
+.contentSection.purple {
+  border-top: solid 2px #A333C8 ; }
+
+.contentSection.pink {
+  border-top: solid 2px #E03997 ; }
+
+.contentSection.brown {
+  border-top: solid 2px #A5673F ; }
+
+.contentSection.grey {
+  border-top: solid 2px #767676 ; }
+
+.contentSection.black {
+  border-top: solid 2px #1B1C1D ; }
 
 #topSection {
   width: 100%;

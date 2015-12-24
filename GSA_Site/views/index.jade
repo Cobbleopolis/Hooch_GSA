@@ -1,7 +1,7 @@
 extends layout
 
 mixin makeSection(data)
-    div.contentSection
+    div(class='contentSection ' + data.color)
         h3= data.header
         hr
         p= data.content
