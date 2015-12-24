@@ -51,4 +51,8 @@ app.post('/login', function(req, res, next) {
     });
 });
 
+app.get('/logout', function(req, res, next) {
+    res.clearCookie('hoochGSAAdminLogin').redirect('/login')
+});
+
 module.exports = app;

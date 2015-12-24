@@ -91,4 +91,19 @@ body {
   font-size: 3rem;
   font-weight: bold; }
 
+button {
+  border: 0;
+    border-radius: 0.28571rem;
+  background: #2185D0;
+  color: #FFF;
+  font-weight: bold;
+  padding: 0.78571rem 1.5rem;
+  -webkit-transition: background 0.01s linear;
+  -moz-transition: background 0.01s linear;
+  -ms-transition: background 0.01s linear;
+  -o-transition: background 0.01s linear;
+  transition: background 0.01s linear; }
+  button:hover {
+    background: #1a69a4; }
+
 /*# sourceMappingURL=index.css.map */
