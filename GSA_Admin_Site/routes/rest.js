@@ -37,12 +37,8 @@ app.post('/login', function(req, res, next) {
         bcrypt.compare(req.body.password, user.password, function(err, compare) {
             if (err)
                 throw err;
-                //res.status(401).send('Something went wrong');
             else if (compare) {
                 jwt.sign({user: user.username}, 'testing', {expiresIn : 60000}, function (token) {
-                    //res.writeHead({
-                    //    'Set-Cookie': 'hoochGSAAdminLogin=' + token
-                    //});
                     res.cookie('hoochGSAAdminLogin', token, {httpOnly: true}).status(200).send();
                 });
             } else
