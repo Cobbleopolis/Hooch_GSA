@@ -14,7 +14,6 @@ $(document).ready( function() {
     nav = $('#nav');
     navButton = $('#navButton');
 
-    navButton.css('height', window.getComputedStyle(document.getElementById('navButton'), null).getPropertyValue('height'));
     navButton.append(navLabel);
 
     var overlayHeight = window.getComputedStyle(document.getElementById('content'), null).getPropertyValue('height');

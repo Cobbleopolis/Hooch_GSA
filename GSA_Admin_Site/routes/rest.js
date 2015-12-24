@@ -27,8 +27,10 @@ app.post('/addUser', function(req, res, next) {
 
 app.post('/login', function(req, res, next) {
     adminDB.query('select username, password from users where username = ?', req.body.username, function (err, row, fields) {
-        if (err)
-            throw err;
+        if (err) {
+            res.status(500).end();
+            throw(err);
+        }
         var user = row[0];
         if (user === undefined) {
             res.status(401).send('User/pass incorrect');
