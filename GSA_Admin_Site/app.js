@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
         jwt.verify(req.cookies.hoochGSAAdminLogin, 'testing', function (err, decoded) {
             if (err) {
                 res.writeHead(302, {
-                    'Location': "/login"
+                    'Location': '/login'
                 });
                 res.end();
                 return;

@@ -9,11 +9,11 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 app.post('/insert', function(req, res, next) {
-    var stmt = db.prepare("insert into lorem values (?)");
+    var stmt = db.prepare('insert into lorem values (?)');
     console.log(req);
     stmt.run(req.body.text);
     stmt.finalize();
-    res.send("Added");
+    res.send('Added');
 });
 
 

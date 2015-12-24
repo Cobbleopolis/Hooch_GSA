@@ -16,9 +16,9 @@ app.post('/addUser', function(req, res, next) {
             req.body.password = hash;
             adminDB.query('insert into users set ?', req.body, function(err, result) {
                 if (err)
-                    res.status(401).send("Something Went Wrong");
+                    res.status(401).send('Something Went Wrong');
                 else
-                    res.status(200).send("Added");
+                    res.status(200).send('Added');
             });
         });
     });

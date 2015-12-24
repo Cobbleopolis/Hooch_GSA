@@ -39,8 +39,11 @@ router.get('/', function (req, res, next) {
     var current = [];
     var currentSection = null;
     db.query('select * from homePage order by section asc;', function(err, row, fields) {
-        if (err)
-            throw err;
+        if (err) {
+            console.log(err);
+            res.status(500).end();
+            return;
+        }
 
         for (var i in row) {
             var item = row[i];
@@ -61,13 +64,13 @@ router.get('/', function (req, res, next) {
             }
         }
         dbOut.sections.push(current);
-        res.render('index', {title: 'Chattahoochee GSA', banner: "Chattahoochee Gay-Straight Alliance", nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
+        res.render('index', {title: 'Chattahoochee GSA', banner: 'Chattahoochee Gay-Straight Alliance', nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
     });
 
 });
 
-router.get("/flags", function(req, res, next) {
-    res.render('flags', {title: 'Chattahoochee GSA', banner: "Flags", nav: nav});
+router.get('/flags', function(req, res, next) {
+    res.render('flags', {title: 'Chattahoochee GSA', banner: 'Flags', nav: nav});
 });
 
 
@@ -94,5 +97,5 @@ module.exports = router;
 //
 //}, function() {
 //    dbOut.sections.push(current);
-//    res.render('index', {title: 'Chattahoochee GSA', banner: "Chattahoochee Gay-Straight Alliance", nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
+//    res.render('index', {title: 'Chattahoochee GSA', banner: 'Chattahoochee Gay-Straight Alliance', nav: nav, slideshow: fs.readdirSync(__dirname + '/../public/images/slideshow'), db: dbOut});
 //}
