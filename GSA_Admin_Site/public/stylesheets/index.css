@@ -54,7 +54,8 @@ body {
         -o-transition: background 0.1s linear;
         transition: background 0.1s linear; }
         #nav ul a li:hover {
-          background: #616161 !important; }
+          background: #616161 !important;
+          cursor: pointer; }
         #nav ul a li i {
           font-size: 2rem; }
         #nav ul a li p {

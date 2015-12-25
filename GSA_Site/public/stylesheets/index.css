@@ -39,7 +39,8 @@ body {
   #nav ul {
     padding: 0;
     margin: 0;
-    background: #2e2e2e; }
+    background: #2e2e2e;
+    height: 100%; }
     #nav ul a {
       color: white;
       text-decoration: none !important; }
@@ -53,7 +54,8 @@ body {
         -o-transition: background 0.1s linear;
         transition: background 0.1s linear; }
         #nav ul a li:hover {
-          background: #616161 !important; }
+          background: #616161 !important;
+          cursor: pointer; }
         #nav ul a li i {
           font-size: 2rem; }
         #nav ul a li p {
