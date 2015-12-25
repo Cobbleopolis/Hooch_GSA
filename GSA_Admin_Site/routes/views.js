@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../bin/db');
-var jwt = require('jsonwebtoken');
 
 var nav = [
     {
