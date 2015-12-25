@@ -74,6 +74,7 @@ function toggleNav() {
 }
 
 function logOut() {
+    console.log('logout');
     $.ajax({
         type: 'GET',
         url: '/api/logout',
@@ -84,4 +85,5 @@ function logOut() {
             console.log('Failed to logout')
         }
     });
+    return false;
 }
