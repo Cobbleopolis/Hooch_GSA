@@ -9,14 +9,18 @@ var nav = [
         link: '/'
     },
     {
-        text: 'Flags',
-        icon: 'flag',
-        link: '/flags'
+        text: 'Edit Home Page',
+        icon: 'pencil-square-o',
+        link: '/editHome'
     }
 ];
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    res.render('index', {title: 'Express', nav: nav});
+});
+
+router.get('/editHome', function (req, res, next) {
     res.render('index', {title: 'Express', nav: nav});
 });
 
