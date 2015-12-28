@@ -9,19 +9,19 @@ var nav = [
         link: '/'
     },
     {
-        text: 'Edit Home Page',
+        text: 'Edit Pages',
         icon: 'pencil-square-o',
-        link: '/editHome'
+        link: '/edit'
     }
 ];
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express', nav: nav});
+    res.render('index', {title: 'GSA Admin Page', banner: "Admin Dashboard", nav: nav});
 });
 
-router.get('/editHome', function (req, res, next) {
-    res.render('index', {title: 'Express', nav: nav});
+router.get('/edit', function (req, res, next) {
+    res.render('edit', {title: 'GSA Admin Page', banner: "Edit Pages", nav: nav});
 });
 
 router.get('/login', function (req, res, next) {

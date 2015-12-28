@@ -40,7 +40,8 @@ body {
     padding: 0;
     margin: 0;
     background: #2e2e2e;
-    height: 100%; }
+    height: 100%;
+    list-style: none; }
     #nav ul a {
       color: white;
       text-decoration: none !important; }
@@ -91,7 +92,7 @@ body {
   width: 100%;
   text-align: center;
   padding-top: 0.25rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   font-size: 3rem;
   font-weight: bold; }
 

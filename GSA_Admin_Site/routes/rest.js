@@ -34,28 +34,36 @@ app.post('/addUser', function(req, res, next) {
 
 app.post('/login', function(req, res, next) {
     adminDBPool.getConnection(function (err, connection) {
-        connection.query('select username, password from users where username = ?', req.body.username, function (err, row, fields) {
-            if (err) {
-                res.status(500).end();
-                throw err;
-            }
-            var user = row[0];
-            if (user === undefined) {
-                res.status(401).send('User/pass incorrect');
-                return;
-            }
-            bcrypt.compare(req.body.password, user.password, function(err, compare) {
-                if (err)
+        if (err) {
+            res.status(500).send('Internal Server Error');
+            throw err;
+            return;
+        }
+        if (connection)
+            connection.query('select username, password from users where username = ?', req.body.username, function (err, row, fields) {
+                if (err) {
+                    res.status(500).end();
                     throw err;
-                else if (compare) {
-                    jwt.sign({user: user.username}, 'testing', {expiresIn : 60000}, function (token) {
-                        res.cookie('hoochGSAAdminLogin', token, {httpOnly: true}).status(200).send();
-                    });
-                } else
+                }
+                var user = row[0];
+                if (user === undefined) {
                     res.status(401).send('User/pass incorrect');
+                    return;
+                }
+                bcrypt.compare(req.body.password, user.password, function(err, compare) {
+                    if (err)
+                        throw err;
+                    else if (compare) {
+                        jwt.sign({user: user.username}, 'testing', {expiresIn : 60000}, function (token) {
+                            res.cookie('hoochGSAAdminLogin', token, {httpOnly: true}).status(200).send();
+                        });
+                    } else
+                        res.status(401).send('User/pass incorrect');
+                });
+                connection.release();
             });
-            connection.release();
-        });
+        else
+            res.status(500).send('Internal Server Error');
     });
 });
 
