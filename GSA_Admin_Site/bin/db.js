@@ -1,4 +1,4 @@
-var mysql      = require('mysql');
+var mysql      = require('mysql2');
 
 var connectionPoolConfig = {
     host     : process.env.NODE_ENV === 'development' ? '45.16.76.67' : 'localhost',
@@ -13,7 +13,7 @@ var adminConnectionPoolConfig = {
     user     : 'dev',
     password : 'gayisok1',
     database : 'admin_gsa_site',
-    connectionLimit: 2
+    connectionLimit: 50
 };
 
 var connectionPool = mysql.createPool(connectionPoolConfig);

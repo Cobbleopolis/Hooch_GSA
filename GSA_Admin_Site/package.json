@@ -14,7 +14,7 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^5.4.1",
     "morgan": "~1.6.1",
-    "mysql": "^2.10.0",
+    "mysql2": "^0.15.8",
     "serve-favicon": "~2.3.0"
   }
 }

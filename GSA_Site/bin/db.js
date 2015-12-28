@@ -1,4 +1,4 @@
-var mysql      = require('mysql');
+var mysql      = require('mysql2');
 
 var connectionPoolConfig = {
     host     : process.env.NODE_ENV === 'development' ? '45.16.76.67' : 'localhost',
