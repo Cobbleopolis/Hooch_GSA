@@ -1,0 +1,136 @@
+body {
+  font-family: Ubuntu;
+  background: #e0e0e0;
+  overflow-x: hidden; }
+
+#content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #e0e0e0;
+  background: #e0e0e0; }
+
+#overlay {
+  content: "\a";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  display: none; }
+
+#pageContent {
+  padding-left: 5rem;
+  padding-right: 5rem; }
+
+#nav {
+  z-index: 0;
+  position: fixed;
+  float: left;
+  left: 0;
+  top: 0;
+  height: 100%;
+  overflow: auto;
+  background: #2e2e2e; }
+  #nav ul {
+    padding: 0;
+    margin: 0;
+    background: #2e2e2e;
+    height: 100%;
+    list-style: none; }
+    #nav ul a {
+      color: white;
+      text-decoration: none !important; }
+      #nav ul a li {
+        text-align: center;
+        padding: 1rem 2rem 0 2rem;
+        border-bottom: solid 1px #474747;
+        -webkit-transition: background 0.1s linear;
+        -moz-transition: background 0.1s linear;
+        -ms-transition: background 0.1s linear;
+        -o-transition: background 0.1s linear;
+        transition: background 0.1s linear; }
+        #nav ul a li:hover {
+          background: #616161 !important;
+          cursor: pointer; }
+        #nav ul a li i {
+          font-size: 2rem; }
+        #nav ul a li p {
+          margin-top: 0 !important; }
+
+#navButton {
+  float: left;
+  left: 0;
+  top: 2rem;
+  position: fixed;
+  z-index: 1;
+  color: #FFFFFF;
+  background: #2e2e2e;
+  font-size: 20px;
+  padding: 1rem;
+  height: 2rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  display: inline-block !important; }
+  #navButton i {
+    position: relative;
+    vertical-align: middle;
+    height: 1rem;
+    padding-right: 0.5rem; }
+  #navButton #navLabel {
+    display: none;
+    padding: 0;
+    vertical-align: middle; }
+  #navButton:hover {
+    cursor: pointer; }
+
+#banner {
+  width: 100%;
+  text-align: center;
+  padding-top: 0.25rem;
+  padding-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: bold; }
+
+#loadingModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8) url("http://i.stack.imgur.com/FhHRx.gif") 50% 50% no-repeat; }
+
+body.loading {
+  overflow: hidden; }
+  body.loading loadingModal {
+    display: block; }
+
+ul.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  ul.tabs li {
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer; }
+  ul.tabs li.current {
+    background: #ededed;
+    color: #222; }
+
+.tab-content {
+  display: none;
+  background: #ededed;
+  padding: 15px; }
+
+.tab-content.current {
+  display: inherit; }
+
+/*# sourceMappingURL=edit.css.map */
