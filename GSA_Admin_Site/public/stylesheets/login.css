@@ -96,6 +96,21 @@ body {
   font-size: 3rem;
   font-weight: bold; }
 
+#loadingModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8) url("http://i.stack.imgur.com/FhHRx.gif") 50% 50% no-repeat; }
+
+body.loading {
+  overflow: hidden; }
+  body.loading #loadingModal {
+    display: block; }
+
 body {
   padding: 0;
   background: #c7c7c7; }
@@ -103,7 +118,6 @@ body {
 #loginDiv {
   background: #e0e0e0;
   width: 30rem;
-  height: 13.25rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -155,5 +169,19 @@ body {
       transition: background 0.01s linear; }
       #loginDiv form input[type=submit]:hover {
         background: #1a69a4; }
+
+.loginError {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding-top: 0.39286rem;
+  padding-bottom: 0.39286rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  background-color: #fff6f6;
+  color: #9f3a38;
+  box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
+  border-radius: 0.28571rem; }
 
 /*# sourceMappingURL=login.css.map */

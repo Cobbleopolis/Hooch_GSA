@@ -96,6 +96,21 @@ body {
   font-size: 3rem;
   font-weight: bold; }
 
+#loadingModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8) url("http://i.stack.imgur.com/FhHRx.gif") 50% 50% no-repeat; }
+
+body.loading {
+  overflow: hidden; }
+  body.loading loadingModal {
+    display: block; }
+
 button {
   border: 0;
     border-radius: 0.28571rem;

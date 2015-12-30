@@ -7,6 +7,7 @@ html
         script(src="public/javascripts/jquery-2.1.4.min.js")
         script(src="public/javascripts/login.js")
     body
+        div#loadingModal
         div#loginDiv
             h3 Login
             hr
@@ -15,4 +16,4 @@ html
                 br
                 input(type="password" id="password" name="password" placeholder="Password")
                 hr
-                input(type="submit" value="Login")
+                input(type="submit" id="loginSubmit" value="Login")
