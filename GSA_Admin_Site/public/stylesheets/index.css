@@ -108,7 +108,7 @@ body {
 
 body.loading {
   overflow: hidden; }
-  body.loading loadingModal {
+  body.loading #loadingModal {
     display: block; }
 
 button {

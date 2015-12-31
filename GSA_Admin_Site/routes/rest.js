@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
+var editRest = require('./rest/edit');
+
+app.use('/edit', editRest);
+
 app.post('/addUser', function(req, res, next) {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(req.body.password, salt, function(err, hash) {
