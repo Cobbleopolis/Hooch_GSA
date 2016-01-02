@@ -87,3 +87,25 @@ function logOut() {
     });
     return false;
 }
+
+function prependError(mount, errorMsg) {
+    var msg = $(document.createElement('p'));
+    msg.addClass('message error');
+    msg.text(errorMsg);
+    mount.prepend(msg);
+}
+
+function appendError(mount, errorMsg) {
+    var msg = $(document.createElement('p'));
+    msg.addClass('message error');
+    msg.text(errorMsg);
+    mount.append(msg);
+}
+
+function removeError(error) {
+    error.remove();
+}
+
+function removeAllErrors() {
+    $('p.message.error').remove();
+}

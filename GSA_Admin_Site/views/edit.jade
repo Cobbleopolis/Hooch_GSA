@@ -16,9 +16,13 @@ block content
 
     div(id='home' class='tab-content current loading')
         div.selection
-            p= JSON.stringify(sections)
-            form
+            form#homeSelectForm
                 +createOption('selectRow', 'Select Row', 'Loading...')
+                br
                 +createOption('selectSection', 'Select Section', 'Loading...')
+                br
+                input(type='submit' name='add' value='Add Section')
+                input(type='submit' name='edit' value='Edit Section')
+                input(type='submit' name='delete' value='Delete Section')
     div(id='flags' class='tab-content')
         p Flags
