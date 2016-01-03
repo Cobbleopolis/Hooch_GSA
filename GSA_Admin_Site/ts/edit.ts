@@ -1,38 +1,44 @@
-var EditSection = (function () {
-    function EditSection() {
-        this.selectors = {};
-        this.formOptions = {};
-        this.errors = {};
-    }
-    return EditSection;
-})();
+class EditSection {
+    section: JQuery;
+    selectors: any = {};
+    selectForm: JQuery;
+    formOptions: any = {};
+    errors: any = {};
+}
+
 var home = new EditSection();
 home.errors = {
     mustBeSelected: 'You must select a row and a section',
     firstRowAdd: 'Can\'t add section to first row.',
-    firstRowDelete: 'Can\'t delete section to first row.'
+    firstRowDelete:'Can\'t delete section to first row.'
 };
-var Mode = (function () {
-    function Mode() {
-    }
-    return Mode;
-})();
-$(function () {
+
+class Mode {
+    static operation: string;
+    static page: string;
+    static info: any;
+}
+
+$(function() {
     home.section = $('#home');
     home.selectForm = $('#homeSelectForm');
     home.formOptions.selectRow = $('#selectRow');
     home.formOptions.selectSection = $('#selectSection');
-    $('ul.tabs li').click(function () {
+
+    $('ul.tabs li').click(function(){
         var tab_id = $(this).attr('data-tab');
+
         $('ul.tabs li').removeClass('current');
         $('.tab-content').removeClass('current');
+
         $(this).addClass('current');
-        $("#" + tab_id).addClass('current');
+        $("#"+tab_id).addClass('current');
     });
+
     $.ajax({
         type: 'GET',
         url: '/api/edit/homeEditSelectors',
-        success: function (res) {
+        success: function(res) {
             var optionSelector = $('option');
             home.selectors = res;
             home.formOptions.selectRow.find(optionSelector).text("Select Row");
@@ -44,21 +50,23 @@ $(function () {
                 home.formOptions.selectRow.append(rowEntry);
             }
         },
-        error: function (res) {
+        error: function(res) {
             if (res.status === 500)
                 alert('There was an internal server error while getting the home selectors');
             else
                 alert('Something went wrong while getting the home selectors');
         }
     });
+
     //Add clicked attribute to a submit input when clicked
-    $("form input[type=submit]").click(function (event) {
+    $("form input[type=submit]").click(function(event) {
         $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
         //event.preventDefault();
     });
+
     //Home Selector Change Rules
-    home.formOptions.selectRow.change(function () {
+    home.formOptions.selectRow.change(function() {
         home.formOptions.selectSection.find('option:gt(0)').remove();
         var rowSections = home.selectors.sections[home.formOptions.selectRow.val() - 1];
         for (var i in rowSections) {
@@ -68,8 +76,9 @@ $(function () {
             home.formOptions.selectSection.append(sectionEntry);
         }
     });
+
     //Home Selection Form Submit
-    home.selectForm.submit(function (event) {
+    home.selectForm.submit(function(event) {
         event.preventDefault();
         var clickedButton = $('input[type=submit][clicked=true]');
         ErrorHandle.removeAllErrors();
@@ -80,16 +89,18 @@ $(function () {
         if (clickedButton.attr('name') === 'edit') {
             console.log('edit');
             generateHomePageCustomizationDialog('edit', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
-        }
-        else if (clickedButton.attr('name') === 'add') {
+
+
+        } else if (clickedButton.attr('name') === 'add') {
             console.log('add');
             if (home.formOptions.selectRow.val() === '1') {
                 ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowAdd);
                 return;
             }
             generateHomePageCustomizationDialog('add', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
-        }
-        else if (clickedButton.attr('name') === 'delete') {
+
+
+        } else if (clickedButton.attr('name') === 'delete') {
             console.log('delete');
             if (home.formOptions.selectRow.val() === '1') {
                 ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowDelete);
@@ -98,9 +109,10 @@ $(function () {
         }
     });
 });
+
 function generateHomePageCustomizationDialog(operation, row, section) {
     Mode.page = 'home';
     Mode.operation = operation;
-    Mode.info = { row: row, section: section };
+    Mode.info = {row: row, section: section};
+
 }
-//# sourceMappingURL=edit.js.map

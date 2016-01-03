@@ -1,11 +1,11 @@
-var animTime = 500;
-$(function () {
+var animTime: number = 500;
+
+$(function() {
     $('#slideShow').find('> img:gt(0)').hide();
-    setInterval(function () {
+    setInterval(function() {
         var first = $('#slideShow').find('img:first');
         first.fadeOut(animTime);
         first.next().delay(animTime).fadeIn(animTime);
         first.appendTo('#slideShow');
     }, 4000);
 });
-//# sourceMappingURL=index.js.map

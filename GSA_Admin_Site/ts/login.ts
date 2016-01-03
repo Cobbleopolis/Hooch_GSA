@@ -1,14 +1,17 @@
-var body;
-var loginForm;
-$(function () {
+
+var body: JQuery;
+var loginForm: JQuery;
+
+$(function() {
     body = $('body');
     loginForm = $('#loginForm');
-    loginForm.submit(function (event) {
+
+    loginForm.submit(function(event: JQueryEventObject) {
         ErrorHandle.removeAllErrors();
-        var data = {};
-        var values = $(this).serializeArray();
+        let data = {};
+        let values = $(this).serializeArray();
         //console.log(values);
-        for (var i in values) {
+        for (let i in values) {
             var item = values[i];
             data[item.name] = item.value;
         }
@@ -18,11 +21,11 @@ $(function () {
             type: 'POST',
             url: '/api/login',
             data: data,
-            success: function (res) {
+            success: function(res) {
                 console.log(res);
                 window.location.replace('/');
             },
-            error: function (res) {
+            error: function(res) {
                 if (res.status === 401)
                     //ErrorHandle.prependError(loginForm, 'Incorrect Username/Password');
                     ErrorHandle.errorBeforeWithBreak(loginForm, 'Incorrect Username/Password');
@@ -31,17 +34,17 @@ $(function () {
                 else
                     ErrorHandle.errorBeforeWithBreak(loginForm, 'Something went wrong while logging in');
             },
-            complete: function (res) {
+            complete: function(res) {
                 body.removeClass('loading');
             }
         });
         event.preventDefault();
     });
 });
-function loginError(message) {
+
+function loginError(message: string) {
     var msg = $(document.createElement('p'));
     msg.addClass('message error');
     msg.text(message);
     //msg.insertBefore('#loginSubmit');
 }
-//# sourceMappingURL=login.js.map
