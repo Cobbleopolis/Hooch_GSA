@@ -3,7 +3,7 @@ var mysql      = require('mysql2');
 var host = '';
 switch (process.env.NODE_ENV) {
     case 'development': host = '45.16.76.67'; break;
-    case 'developmentLocal': host = '192.167.1.211'; break;
+    case 'developmentLocal': host = '192.168.1.211'; break;
     default: host = 'localhost'; break;
 }
 
