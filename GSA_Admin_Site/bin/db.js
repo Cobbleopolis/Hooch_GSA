@@ -1,7 +1,14 @@
 var mysql      = require('mysql2');
 
+var host = '';
+switch (process.env.NODE_ENV) {
+    case 'development': host = '45.16.76.67'; break;
+    case 'developmentLocal': host = '192.167.1.211'; break;
+    default: host = 'localhost'; break;
+}
+
 var connectionPoolConfig = {
-    host     : process.env.NODE_ENV === 'development' ? '45.16.76.67' : 'localhost',
+    host     : host,
     user     : 'dev',
     password : 'gayisok1',
     database : 'gsa_site',
@@ -9,7 +16,7 @@ var connectionPoolConfig = {
 };
 
 var adminConnectionPoolConfig = {
-    host     : process.env.NODE_ENV === 'development' ? '45.16.76.67' : 'localhost',
+    host     : host,
     user     : 'dev',
     password : 'gayisok1',
     database : 'admin_gsa_site',
