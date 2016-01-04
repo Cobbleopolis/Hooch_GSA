@@ -7,6 +7,7 @@ mixin createOption(id, label, placeholder)
 
 block head
     link(rel='stylesheet', href='public/stylesheets/edit.css')
+    script(src="public/javascripts/tinymce/tinymce.min.js")
     script(src="public/javascripts/edit.js")
 
 block content
@@ -21,8 +22,8 @@ block content
                 br
                 +createOption('selectSection', 'Select Section', 'Loading...')
                 br
-                input(type='submit' name='add' value='Add Section')
-                input(type='submit' name='edit' value='Edit Section')
-                input(type='submit' name='delete' value='Delete Section')
+                input(type='submit' name='add' value='Add Section').positive
+                input(type='submit' name='edit' value='Edit Section').neutral
+                input(type='submit' name='delete' value='Delete Section').negative
     div(id='flags' class='tab-content')
         p Flags

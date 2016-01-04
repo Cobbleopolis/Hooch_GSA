@@ -12,6 +12,34 @@ home.errors = {
     firstRowAdd: 'Can\'t add section to first row.',
     firstRowDelete: 'Can\'t delete section to first row.'
 };
+home.generateForm = function () {
+    var form = ($(document.createElement('form'))).attr('id', 'headerForm');
+    var headerLabel = ($(document.createElement('label'))).attr('id', 'homeHeaderLabel').attr('for', 'homeHeaderOption').text('Header');
+    var headerOption = ($(document.createElement('input'))).attr('id', 'homeHeaderOption').attr('type', 'text').attr('name', 'homeHeaderOption');
+    var contentLabel = ($(document.createElement('label'))).attr('id', 'homeContentLabel').attr('for', 'homeContentOption').text('Content');
+    var contentOption = ($(document.createElement('textarea'))).attr('id', 'homeContentOption').attr('form', 'headerForm').attr('name', 'homeHeaderOption');
+    var colorLabel = ($(document.createElement('label'))).attr('id', 'homeColorLabel').attr('for', 'homeColorOption').text('Color');
+    var colorOption = ($(document.createElement('select'))).attr('id', 'homeColorOption');
+    for (var _i = 0, _a = Color.allColors; _i < _a.length; _i++) {
+        var i = _a[_i];
+        colorOption.append(($(document.createElement('option'))).attr('value', i.toString()).text(i.getDisplayString()));
+    }
+    var save = ($(document.createElement('input'))).attr('id', 'homeSubmit').attr('name', 'save').attr('type', 'submit').attr('value', 'Save').addClass('positive');
+    var cancel = ($(document.createElement('input'))).attr('id', 'homeCancel').attr('name', 'save').attr('type', 'submit').attr('value', 'Cancel').addClass('negative');
+    form
+        .append(headerLabel)
+        .append(headerOption)
+        .append(document.createElement('br'))
+        .append(contentLabel)
+        .append(contentOption)
+        .append(document.createElement('br'))
+        .append(colorLabel)
+        .append(colorOption)
+        .append(save)
+        .append(cancel);
+    home.section.append(form);
+    return form;
+};
 var Mode = (function () {
     function Mode() {
     }
@@ -102,5 +130,7 @@ function generateHomePageCustomizationDialog(operation, row, section) {
     Mode.page = 'home';
     Mode.operation = operation;
     Mode.info = { row: row, section: section };
+    var form = home.generateForm();
+    tinymce.init({ selector: '#homeContentOption' });
 }
 //# sourceMappingURL=edit.js.map

@@ -3,14 +3,50 @@ class EditSection {
     selectors: any = {};
     selectForm: JQuery;
     formOptions: any = {};
+    generateForm: () => JQuery;
     errors: any = {};
 }
 
 var home = new EditSection();
+
 home.errors = {
     mustBeSelected: 'You must select a row and a section',
     firstRowAdd: 'Can\'t add section to first row.',
     firstRowDelete:'Can\'t delete section to first row.'
+};
+
+home.generateForm = function(): JQuery {
+    var form: JQuery = ($(document.createElement('form'))).attr('id', 'headerForm');
+
+    var headerLabel: JQuery = ($(document.createElement('label'))).attr('id', 'homeHeaderLabel').attr('for', 'homeHeaderOption').text('Header');
+    var headerOption: JQuery = ($(document.createElement('input'))).attr('id', 'homeHeaderOption').attr('type', 'text').attr('name', 'homeHeaderOption');
+
+    var contentLabel: JQuery = ($(document.createElement('label'))).attr('id', 'homeContentLabel').attr('for', 'homeContentOption').text('Content');
+    var contentOption: JQuery = ($(document.createElement('textarea'))).attr('id', 'homeContentOption').attr('form', 'headerForm').attr('name', 'homeHeaderOption');
+
+    var colorLabel: JQuery = ($(document.createElement('label'))).attr('id', 'homeColorLabel').attr('for', 'homeColorOption').text('Color');
+    var colorOption: JQuery = ($(document.createElement('select'))).attr('id', 'homeColorOption');
+    for (let i of Color.allColors)
+        colorOption.append(($(document.createElement('option'))).attr('value', i.toString()).text(i.getDisplayString()));
+
+    var save: JQuery = ($(document.createElement('input'))).attr('id', 'homeSubmit').attr('name', 'save').attr('type', 'submit').attr('value', 'Save').addClass('positive');
+    var cancel: JQuery = ($(document.createElement('input'))).attr('id', 'homeCancel').attr('name', 'save').attr('type', 'submit').attr('value', 'Cancel').addClass('negative');
+
+    form
+        .append(headerLabel)
+        .append(headerOption)
+        .append(document.createElement('br'))
+        .append(contentLabel)
+        .append(contentOption)
+        .append(document.createElement('br'))
+        .append(colorLabel)
+        .append(colorOption)
+        .append(save)
+        .append(cancel);
+
+    home.section.append(form);
+
+    return form;
 };
 
 class Mode {
@@ -115,4 +151,6 @@ function generateHomePageCustomizationDialog(operation, row, section) {
     Mode.operation = operation;
     Mode.info = {row: row, section: section};
 
+    var form: JQuery = home.generateForm();
+    tinymce.init({selector: '#homeContentOption'});
 }

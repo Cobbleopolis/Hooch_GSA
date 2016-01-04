@@ -125,6 +125,40 @@ body.loading {
   box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
   border-radius: 0.28571rem; }
 
+label, input, select {
+  font-size: 1rem; }
+
+input[type=submit] {
+  margin: 0.25rem;
+  border: 0;
+    border-radius: 0.28571rem;
+  background: #2185D0;
+  color: #FFF;
+  font-weight: bold;
+  padding: 0.78571rem 1.5rem;
+  -webkit-transition: background 0.01s linear;
+  -moz-transition: background 0.01s linear;
+  -ms-transition: background 0.01s linear;
+  -o-transition: background 0.01s linear;
+  transition: background 0.01s linear; }
+  input[type=submit]:hover {
+    background: #1a69a4; }
+
+input[type=submit].neutral {
+  background: #2185D0; }
+  input[type=submit].neutral:hover {
+    background: #1a69a4; }
+
+input[type=submit].positive {
+  background: #21BA45; }
+  input[type=submit].positive:hover {
+    background: #198f35; }
+
+input[type=submit].negative {
+  background: #DB2828; }
+  input[type=submit].negative:hover {
+    background: #b21e1e; }
+
 body {
   padding: 0;
   background: #c7c7c7; }

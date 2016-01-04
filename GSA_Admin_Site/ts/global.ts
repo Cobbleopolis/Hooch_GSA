@@ -123,3 +123,45 @@ class ErrorHandle {
         $('p.message.error').remove();
     }
 }
+
+class Color {
+
+    color: string;
+
+    constructor (value: string) {this.color = value}
+
+    toString(): string {return this.color}
+
+    getDisplayString(): string {
+        return this.color.substring(0, 1).toUpperCase() + this.color.substring(1);
+    }
+
+    static red: Color = new Color('red');
+    static orange: Color = new Color('orange');
+    static yellow: Color = new Color('yellow');
+    static olive: Color = new Color('olive');
+    static green: Color = new Color('green');
+    static teal: Color = new Color('teal');
+    static blue: Color = new Color('blue');
+    static violet: Color = new Color('violet');
+    static pink: Color = new Color('pink');
+    static brown: Color = new Color('brown');
+    static grey: Color = new Color('grey');
+    static black: Color = new Color('black');
+
+    static allColors: Color[] = [
+        Color.red,
+        Color.orange,
+        Color.yellow,
+        Color.olive,
+        Color.green,
+        Color.teal,
+        Color.blue,
+        Color.violet,
+        Color.pink,
+        Color.brown,
+        Color.grey,
+        Color.black
+    ];
+
+}

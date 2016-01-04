@@ -106,4 +106,40 @@ var ErrorHandle = (function () {
     };
     return ErrorHandle;
 })();
+var Color = (function () {
+    function Color(value) {
+        this.color = value;
+    }
+    Color.prototype.toString = function () { return this.color; };
+    Color.prototype.getDisplayString = function () {
+        return this.color.substring(0, 1).toUpperCase() + this.color.substring(1);
+    };
+    Color.red = new Color('red');
+    Color.orange = new Color('orange');
+    Color.yellow = new Color('yellow');
+    Color.olive = new Color('olive');
+    Color.green = new Color('green');
+    Color.teal = new Color('teal');
+    Color.blue = new Color('blue');
+    Color.violet = new Color('violet');
+    Color.pink = new Color('pink');
+    Color.brown = new Color('brown');
+    Color.grey = new Color('grey');
+    Color.black = new Color('black');
+    Color.allColors = [
+        Color.red,
+        Color.orange,
+        Color.yellow,
+        Color.olive,
+        Color.green,
+        Color.teal,
+        Color.blue,
+        Color.violet,
+        Color.pink,
+        Color.brown,
+        Color.grey,
+        Color.black
+    ];
+    return Color;
+})();
 //# sourceMappingURL=global.js.map
