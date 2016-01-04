@@ -92,7 +92,7 @@ class ErrorHandle {
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertBefore(mount);
-        callback(msg, mount);
+        if (callback) callback(msg, mount);
         return msg;
     }
 
@@ -101,7 +101,7 @@ class ErrorHandle {
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertAfter(mount);
-        callback(msg, mount);
+        if (callback) callback(msg, mount);
         return msg;
     }
 
@@ -119,12 +119,12 @@ class ErrorHandle {
 
     static removeError(error: JQuery, callback?: () => void) {
         error.remove();
-        callback();
+        if (callback) callback();
     }
 
     static removeAllErrors(callback?: () => void) {
         $('p.message.error').remove();
-        callback();
+        if (callback) callback();
     }
 }
 

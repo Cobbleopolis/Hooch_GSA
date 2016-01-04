@@ -4,6 +4,7 @@ $(function () {
     body = $('body');
     loginForm = $('#loginForm');
     loginForm.submit(function (event) {
+        event.preventDefault();
         ErrorHandle.removeAllErrors();
         var data = {};
         var values = $(this).serializeArray();
@@ -35,7 +36,6 @@ $(function () {
                 body.removeClass('loading');
             }
         });
-        event.preventDefault();
     });
 });
 function loginError(message) {

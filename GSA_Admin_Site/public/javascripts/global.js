@@ -79,7 +79,8 @@ var ErrorHandle = (function () {
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertBefore(mount);
-        callback(msg, mount);
+        if (callback)
+            callback(msg, mount);
         return msg;
     };
     ErrorHandle.errorAfter = function (mount, errorMsg, callback) {
@@ -87,7 +88,8 @@ var ErrorHandle = (function () {
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertAfter(mount);
-        callback(msg, mount);
+        if (callback)
+            callback(msg, mount);
         return msg;
     };
     ErrorHandle.errorBeforeWithBreak = function (mount, errorMsg, callback) {
@@ -102,11 +104,13 @@ var ErrorHandle = (function () {
     };
     ErrorHandle.removeError = function (error, callback) {
         error.remove();
-        callback();
+        if (callback)
+            callback();
     };
     ErrorHandle.removeAllErrors = function (callback) {
         $('p.message.error').remove();
-        callback();
+        if (callback)
+            callback();
     };
     return ErrorHandle;
 })();

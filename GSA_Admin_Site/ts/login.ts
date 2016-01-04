@@ -7,6 +7,7 @@ $(function() {
     loginForm = $('#loginForm');
 
     loginForm.submit(function(event: JQueryEventObject) {
+        event.preventDefault();
         ErrorHandle.removeAllErrors();
         let data = {};
         let values = $(this).serializeArray();
@@ -38,7 +39,6 @@ $(function() {
                 body.removeClass('loading');
             }
         });
-        event.preventDefault();
     });
 });
 
