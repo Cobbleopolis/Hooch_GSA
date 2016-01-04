@@ -106,19 +106,19 @@ $(function() {
     //Home Selection Form Submit
     home.selectForm.submit(function(event) {
         event.preventDefault();
-        var clickedButton = $('input[type=submit][clicked=true]');
         ErrorHandle.removeAllErrors(handleAllErrorRemove);
+        let clickedButton = home.selectForm.find('input[type=submit][clicked=true]');
         if (home.formOptions.selectRow.val() === null || home.formOptions.selectSection.val() === null) {
             ErrorHandle.errorBefore(home.selectForm, home.errors.mustBeSelected, handleError);
             return;
         }
         if (clickedButton.attr('name') === 'edit') {
-            console.log('edit');
+            //console.log('edit');
             generateHomePageCustomizationDialog('edit', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
 
 
         } else if (clickedButton.attr('name') === 'add') {
-            console.log('add');
+            //console.log('add');
             if (home.formOptions.selectRow.val() === '1') {
                 ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowAdd, handleError);
                 return;
@@ -127,7 +127,7 @@ $(function() {
 
 
         } else if (clickedButton.attr('name') === 'delete') {
-            console.log('delete');
+            //console.log('delete');
             if (home.formOptions.selectRow.val() === '1') {
                 ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowDelete, handleError);
                 return;
@@ -136,22 +136,21 @@ $(function() {
     });
 
     home.editForm.submit(function(event) {
-        console.log('Submit');
         event.preventDefault();
-        var clickedButton = $('input[type=submit][clicked=true]');
+        let clickedButton = home.editForm.find('input[type=submit][clicked=true]');
         ErrorHandle.removeAllErrors(handleAllErrorRemove);
-        //if (clickedButton.attr('name') === 'cancel') {
-        home.section.children().removeClass('currentSection');
-        home.selectForm.addClass('currentSection');
-        var animWidth: number = parseFloat(home.selectDiv.css('left'));
-        //home.editDiv.fadeIn(animationTime);
-        home.selectDiv.delay(100).animate({left: 0, opacity: 1}, animationTime);
-        home.editDiv.delay(100).animate({left: -animWidth, opacity: 0}, animationTime);
-        setTimeout(function() {
-            var h = home.selectDiv.height();
-            home.section.animate({height: h}, animationTime);
-        }, 100);
-        //}
+        if (clickedButton.attr('name') === 'cancel') {
+            home.section.children().removeClass('currentSection');
+            home.selectForm.addClass('currentSection');
+            var animWidth: number = parseFloat(home.selectDiv.css('left'));
+            //home.editDiv.fadeIn(animationTime);
+            home.selectDiv.delay(100).animate({left: 0, opacity: 1}, animationTime);
+            home.editDiv.delay(100).animate({left: -animWidth, opacity: 0}, animationTime);
+            setTimeout(function() {
+                var h = home.selectDiv.height();
+                home.section.animate({height: h}, animationTime);
+            }, 100);
+        }
     });
 });
 
