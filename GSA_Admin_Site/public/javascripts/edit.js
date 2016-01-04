@@ -7,49 +7,37 @@ var EditSection = (function () {
     return EditSection;
 })();
 var home = new EditSection();
+var animationTime = 500;
 home.errors = {
     mustBeSelected: 'You must select a row and a section',
     firstRowAdd: 'Can\'t add section to first row.',
     firstRowDelete: 'Can\'t delete section to first row.'
-};
-home.generateForm = function () {
-    var form = ($(document.createElement('form'))).attr('id', 'headerForm');
-    var headerLabel = ($(document.createElement('label'))).attr('id', 'homeHeaderLabel').attr('for', 'homeHeaderOption').text('Header');
-    var headerOption = ($(document.createElement('input'))).attr('id', 'homeHeaderOption').attr('type', 'text').attr('name', 'homeHeaderOption');
-    var contentLabel = ($(document.createElement('label'))).attr('id', 'homeContentLabel').attr('for', 'homeContentOption').text('Content');
-    var contentOption = ($(document.createElement('textarea'))).attr('id', 'homeContentOption').attr('form', 'headerForm').attr('name', 'homeHeaderOption');
-    var colorLabel = ($(document.createElement('label'))).attr('id', 'homeColorLabel').attr('for', 'homeColorOption').text('Color');
-    var colorOption = ($(document.createElement('select'))).attr('id', 'homeColorOption');
-    for (var _i = 0, _a = Color.allColors; _i < _a.length; _i++) {
-        var i = _a[_i];
-        colorOption.append(($(document.createElement('option'))).attr('value', i.toString()).text(i.getDisplayString()));
-    }
-    var save = ($(document.createElement('input'))).attr('id', 'homeSubmit').attr('name', 'save').attr('type', 'submit').attr('value', 'Save').addClass('positive');
-    var cancel = ($(document.createElement('input'))).attr('id', 'homeCancel').attr('name', 'save').attr('type', 'submit').attr('value', 'Cancel').addClass('negative');
-    form
-        .append(headerLabel)
-        .append(headerOption)
-        .append(document.createElement('br'))
-        .append(contentLabel)
-        .append(contentOption)
-        .append(document.createElement('br'))
-        .append(colorLabel)
-        .append(colorOption)
-        .append(save)
-        .append(cancel);
-    home.section.append(form);
-    return form;
 };
 var Mode = (function () {
     function Mode() {
     }
     return Mode;
 })();
+function handleError(error, mount) {
+    $('.tab-content.current').css('height', '+=' + error.outerHeight(true));
+}
+function handleAllErrorRemove() {
+    home.section.css('height', $('.section.currentSection').outerHeight(true));
+}
 $(function () {
     home.section = $('#home');
+    home.selectDiv = $('#homeSelection');
     home.selectForm = $('#homeSelectForm');
+    home.editDiv = $('#homeEdit');
+    home.editForm = $('#headerForm');
     home.formOptions.selectRow = $('#selectRow');
     home.formOptions.selectSection = $('#selectSection');
+    home.editDiv.css('top', -home.selectDiv.height());
+    home.section.css('height', home.selectDiv.height());
+    tinymce.init({
+        selector: '#homeContentOption',
+        plugins: 'advlist,anchor,autolink,autoresize,autosave,bbcode,charmap,code,codesample,colorpicker,contextmenu,directionality,emoticons,fullpage,fullscreen,hr,image,imagetools,importcss,insertdatetime,layer,legacyoutput,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,visualblocks,visualchars,wordcount'
+    });
     $('ul.tabs li').click(function () {
         var tab_id = $(this).attr('data-tab');
         $('ul.tabs li').removeClass('current');
@@ -100,9 +88,9 @@ $(function () {
     home.selectForm.submit(function (event) {
         event.preventDefault();
         var clickedButton = $('input[type=submit][clicked=true]');
-        ErrorHandle.removeAllErrors();
+        ErrorHandle.removeAllErrors(handleAllErrorRemove);
         if (home.formOptions.selectRow.val() === null || home.formOptions.selectSection.val() === null) {
-            ErrorHandle.errorBefore(home.selectForm, home.errors.mustBeSelected);
+            ErrorHandle.errorBefore(home.selectForm, home.errors.mustBeSelected, handleError);
             return;
         }
         if (clickedButton.attr('name') === 'edit') {
@@ -112,7 +100,7 @@ $(function () {
         else if (clickedButton.attr('name') === 'add') {
             console.log('add');
             if (home.formOptions.selectRow.val() === '1') {
-                ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowAdd);
+                ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowAdd, handleError);
                 return;
             }
             generateHomePageCustomizationDialog('add', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
@@ -120,17 +108,42 @@ $(function () {
         else if (clickedButton.attr('name') === 'delete') {
             console.log('delete');
             if (home.formOptions.selectRow.val() === '1') {
-                ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowDelete);
+                ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowDelete, handleError);
                 return;
             }
         }
+    });
+    home.editForm.submit(function (event) {
+        console.log('Submit');
+        event.preventDefault();
+        var clickedButton = $('input[type=submit][clicked=true]');
+        ErrorHandle.removeAllErrors(handleAllErrorRemove);
+        //if (clickedButton.attr('name') === 'cancel') {
+        home.section.children().removeClass('currentSection');
+        home.selectForm.addClass('currentSection');
+        var animWidth = parseFloat(home.selectDiv.css('left'));
+        //home.editDiv.fadeIn(animationTime);
+        home.selectDiv.delay(100).animate({ left: 0, opacity: 1 }, animationTime);
+        home.editDiv.delay(100).animate({ left: -animWidth, opacity: 0 }, animationTime);
+        setTimeout(function () {
+            var h = home.selectDiv.height();
+            home.section.animate({ height: h }, animationTime);
+        }, 100);
+        //}
     });
 });
 function generateHomePageCustomizationDialog(operation, row, section) {
     Mode.page = 'home';
     Mode.operation = operation;
     Mode.info = { row: row, section: section };
-    var form = home.generateForm();
-    tinymce.init({ selector: '#homeContentOption' });
+    home.section.children().removeClass('currentSection');
+    home.editDiv.addClass('currentSection');
+    var animWidth = parseFloat(home.editDiv.css('left'));
+    home.selectDiv.delay(100).animate({ left: -animWidth, opacity: 0 }, animationTime);
+    home.editDiv.delay(100).animate({ left: 0, opacity: 1 }, animationTime);
+    setTimeout(function () {
+        var h = home.editDiv.height();
+        home.section.animate({ height: h }, animationTime);
+    }, 100);
 }
 //# sourceMappingURL=edit.js.map

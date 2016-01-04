@@ -16,14 +16,47 @@ block content
         li(class='tab-link' data-tab='flags') Flags Page
 
     div(id='home' class='tab-content current loading')
-        div.selection
+        div.section.selection.currentSection#homeSelection
             form#homeSelectForm
                 +createOption('selectRow', 'Select Row', 'Loading...')
                 br
                 +createOption('selectSection', 'Select Section', 'Loading...')
                 br
-                input(type='submit' name='add' value='Add Section').positive
-                input(type='submit' name='edit' value='Edit Section').neutral
-                input(type='submit' name='delete' value='Delete Section').negative
+                div.buttonContainer
+                    input(type='submit' name='add' value='Add Section').positive
+                    input(type='submit' name='edit' value='Edit Section').neutral
+                    input(type='submit' name='delete' value='Delete Section').negative
+        div.section.edit#homeEdit
+            form#headerForm
+                label#homeHeaderLabel(for= 'homeContentLabel') Header
+                input#homeHeaderOption(type= 'text' name= 'homeHeaderOption')
+
+                br
+
+                label#homeContentLabel(for= 'homeContentOption') Content
+                input#homeContentOption(type= 'textarea' form= 'headerForm' name= 'homeHeaderOption')
+
+                br
+
+                label#homeColorLabel(for= 'homeColorOption') Color
+                select#homeColorOption
+                    option(selected= 'selected' disabled selection) Color
+                    option(value= 'red') Red
+                    option(value= 'orange') Orange
+                    option(value= 'yellow') Yellow
+                    option(value= 'olive') Olive
+                    option(value= 'green') Green
+                    option(value= 'teal') Teal
+                    option(value= 'blue') Blue
+                    option(value= 'violet') Violet
+                    option(value= 'pink') Pink
+                    option(value= 'brown') Brown
+                    option(value= 'grey') Grey
+                    option(value= 'black') Black
+
+                div.buttonContainer
+                    input#homeSubmit.positive(type= 'submit' name= 'save' value= 'Save')
+                    input#homeCancel.negative(type= 'submit' name= 'cancel' value= 'Cancel')
+
     div(id='flags' class='tab-content')
         p Flags

@@ -74,35 +74,39 @@ function logOut() {
 var ErrorHandle = (function () {
     function ErrorHandle() {
     }
-    ErrorHandle.errorBefore = function (mount, errorMsg) {
+    ErrorHandle.errorBefore = function (mount, errorMsg, callback) {
         var msg = $(document.createElement('p'));
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertBefore(mount);
+        callback(msg, mount);
         return msg;
     };
-    ErrorHandle.errorAfter = function (mount, errorMsg) {
+    ErrorHandle.errorAfter = function (mount, errorMsg, callback) {
         var msg = $(document.createElement('p'));
         msg.addClass('message error');
         msg.text(errorMsg);
         msg.insertAfter(mount);
+        callback(msg, mount);
         return msg;
     };
-    ErrorHandle.errorBeforeWithBreak = function (mount, errorMsg) {
-        var error = this.errorBefore(mount, errorMsg);
+    ErrorHandle.errorBeforeWithBreak = function (mount, errorMsg, callback) {
+        var error = this.errorBefore(mount, errorMsg, callback);
         $(document.createElement('hr')).insertAfter(error);
         return error;
     };
-    ErrorHandle.errorAfterWithBreak = function (mount, errorMsg) {
-        var error = this.errorAfter(mount, errorMsg);
+    ErrorHandle.errorAfterWithBreak = function (mount, errorMsg, callback) {
+        var error = this.errorAfter(mount, errorMsg, callback);
         $(document.createElement('hr')).insertBefore(error);
         return error;
     };
-    ErrorHandle.removeError = function (error) {
+    ErrorHandle.removeError = function (error, callback) {
         error.remove();
+        callback();
     };
-    ErrorHandle.removeAllErrors = function () {
+    ErrorHandle.removeAllErrors = function (callback) {
         $('p.message.error').remove();
+        callback();
     };
     return ErrorHandle;
 })();
