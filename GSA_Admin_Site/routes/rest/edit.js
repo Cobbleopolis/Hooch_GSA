@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
-app.get('/homeEditSelectors', function(req, res, next){
+app.get('/homeEditSelectors', function(req, res, next) {
     db.getDBPool.getConnection(function (err, connection) {
         if (err) {
             res.status(500).send('Internal Server Error');
@@ -31,7 +31,7 @@ app.get('/homeEditSelectors', function(req, res, next){
                     statement.execute([value], function (err, sections, fields) {
                         var out = [];
                         for (var j in sections)
-                            out.push(sections[j].header);
+                            out.push({id: sections[j].id, header: sections[j].header});
                         callback (err, out);
                     });
                 }, function(err, result) {
@@ -49,6 +49,43 @@ app.get('/homeEditSelectors', function(req, res, next){
 
         });
 
+    });
+});
+
+app.get('/homeGetSection/:id', function(req, res, next) {
+    db.getDBPool.getConnection(function (err, connection) {
+        if (err) {
+            res.status(500).send('Internal Server Error');
+            throw err;
+        }
+        connection.query('select * from homePage where id = ?;', req.params.id, function(err, rows, fields) {
+            if (err) {
+                res.status(500).send('Internal Server Error');
+                throw err;
+            }
+            res.status(200).send(rows[0]);
+        });
+        connection.release();
+    });
+});
+
+app.put('/updateHomeSection', function(req, res, next) {
+    console.log(req.body);
+    db.getDBPool.getConnection(function (err, connection) {
+        if (err) {
+            res.status(500).send('Internal Server Error');
+            throw err;
+        }
+        connection.query('update homePage set header = ?, content = ?, color = ? where id = ?',
+            [req.body.header, req.body.content, req.body.color, req.body.id]
+            , function(err, rows, fields) {
+                if (err) {
+                    res.status(500).send('Internal Server Error');
+                    throw err;
+                }
+                res.status(200).send(rows);
+            });
+        connection.release();
     });
 });
 

@@ -2,6 +2,7 @@ var EditSection = (function () {
     function EditSection() {
         this.selectors = {};
         this.formOptions = {};
+        this.editOptions = {};
         this.errors = {};
     }
     return EditSection;
@@ -32,11 +33,14 @@ $(function () {
     home.editForm = $('#headerForm');
     home.formOptions.selectRow = $('#selectRow');
     home.formOptions.selectSection = $('#selectSection');
+    home.editOptions.header = $('#homeHeaderOption');
+    home.editOptions.color = $('#homeColorOption');
     home.editDiv.css('top', -home.selectDiv.height());
     home.section.css('height', home.selectDiv.height());
     tinymce.init({
         selector: '#homeContentOption',
-        plugins: 'advlist,anchor,autolink,autoresize,autosave,bbcode,charmap,code,codesample,colorpicker,contextmenu,directionality,emoticons,fullpage,fullscreen,hr,image,imagetools,importcss,insertdatetime,layer,legacyoutput,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,visualblocks,visualchars,wordcount'
+        plugins: 'advlist,anchor,autolink,autosave,charmap,code,codesample,colorpicker,contextmenu,directionality,emoticons,fullscreen,hr,image,imagetools,importcss,insertdatetime,layer,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,visualblocks,visualchars,wordcount',
+        toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
     });
     $('ul.tabs li').click(function () {
         var tab_id = $(this).attr('data-tab');
@@ -80,7 +84,7 @@ $(function () {
         for (var i in rowSections) {
             var section = rowSections[i];
             var sectionEntry = $(document.createElement('option'));
-            sectionEntry.attr('value', section).text("Section " + (parseInt(i) + 1) + " - " + section);
+            sectionEntry.attr('value', section.id).text("Section " + (parseInt(i) + 1) + " - " + section.header);
             home.formOptions.selectSection.append(sectionEntry);
         }
     });
@@ -95,7 +99,7 @@ $(function () {
         }
         if (clickedButton.attr('name') === 'edit') {
             //console.log('edit');
-            generateHomePageCustomizationDialog('edit', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
+            generateHomePageCustomizationDialog('edit', home.formOptions.selectSection.val());
         }
         else if (clickedButton.attr('name') === 'add') {
             //console.log('add');
@@ -103,7 +107,7 @@ $(function () {
                 ErrorHandle.errorBefore(home.selectForm, home.errors.firstRowAdd, handleError);
                 return;
             }
-            generateHomePageCustomizationDialog('add', home.formOptions.selectRow.val(), home.formOptions.selectSection.val());
+            generateHomePageCustomizationDialog('add', home.formOptions.selectSection.val());
         }
         else if (clickedButton.attr('name') === 'delete') {
             //console.log('delete');
@@ -129,12 +133,33 @@ $(function () {
                 home.section.animate({ height: h }, animationTime);
             }, 100);
         }
+        else if (clickedButton.attr('name') === 'save') {
+            var data = {
+                id: Mode.info.id,
+                header: home.editOptions.header.val(),
+                content: tinymce.activeEditor.getContent(),
+                color: home.editOptions.color.val()
+            };
+            $.ajax({
+                type: 'PUT',
+                url: '/api/edit/updateHomeSection',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    console.log('Updated');
+                },
+                error: function (res) {
+                    console.log('Error updating records');
+                }
+            });
+        }
     });
 });
-function generateHomePageCustomizationDialog(operation, row, section) {
+function generateHomePageCustomizationDialog(operation, sectionId) {
     Mode.page = 'home';
     Mode.operation = operation;
-    Mode.info = { row: row, section: section };
+    Mode.info = { id: sectionId };
     home.section.children().removeClass('currentSection');
     home.editDiv.addClass('currentSection');
     var animWidth = parseFloat(home.editDiv.css('left'));
@@ -144,5 +169,22 @@ function generateHomePageCustomizationDialog(operation, row, section) {
         var h = home.editDiv.height();
         home.section.animate({ height: h }, animationTime);
     }, 100);
+    if (operation === 'edit') {
+        $.ajax({
+            type: 'GET',
+            url: '/api/edit/homeGetSection/' + home.formOptions.selectRow.val(),
+            success: function (res) {
+                home.editOptions.header.val(res.header);
+                tinymce.activeEditor.setContent(res.content);
+                home.editOptions.color.val(res.color);
+            },
+            error: function (res) {
+                if (res.status === 500)
+                    alert('There was an internal server error while getting the home selectors');
+                else
+                    alert('Something went wrong while getting the home selectors');
+            }
+        });
+    }
 }
 //# sourceMappingURL=edit.js.map
