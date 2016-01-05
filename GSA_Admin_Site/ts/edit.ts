@@ -51,7 +51,7 @@ $(function() {
     tinymce.init(
         {
             selector: '#homeContentOption',
-            plugins: 'advlist,anchor,autolink,autosave,charmap,code,codesample,colorpicker,contextmenu,directionality,emoticons,fullscreen,hr,image,imagetools,importcss,insertdatetime,layer,link,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,visualblocks,visualchars,wordcount',
+            plugins: 'advlist,anchor,autolink,autosave,charmap,code,codesample,colorpicker,contextmenu,directionality,emoticons,fullscreen,hr,image,imagetools,importcss,insertdatetime,layer,link,lists,media,nonbreaking,noneditable,paste,preview,print,save,searchreplace,spellchecker,tabfocus,table,template,textcolor,textpattern,visualblocks,visualchars,wordcount',
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         }
     );
