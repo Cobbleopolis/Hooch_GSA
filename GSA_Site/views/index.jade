@@ -2,9 +2,9 @@ extends layout
 
 mixin makeSection(data)
     div(class='contentSection ' + data.color)
-        h3= data.header
+        h3!= data.header
         hr
-        p= data.content
+        !{data.content}
 
 block head
     link(rel='stylesheet', href='public/stylesheets/index.css')
