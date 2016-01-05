@@ -1,7 +1,8 @@
 extends layout
 
 mixin makeSection(data)
-    div(class='contentSection ' + data.color)
+    -var color = data.color !== 'none' ? data.color : ''
+    div(class='contentSection ' + color)
         h3!= data.header
         hr
         !{data.content}
