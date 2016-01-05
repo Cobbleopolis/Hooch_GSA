@@ -5,7 +5,8 @@ mixin makeSection(data)
     div(class='contentSection ' + color)
         h3!= data.header
         hr
-        !{data.content}
+        div
+            !{data.content}
 
 block head
     link(rel='stylesheet', href='public/stylesheets/index.css')
