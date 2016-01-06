@@ -8,7 +8,7 @@ var EditSection = (function () {
     return EditSection;
 })();
 var home = new EditSection();
-var animationTime = 500;
+var animationTime = 250;
 home.errors = {
     mustBeSelected: 'You must select a row and a section',
     firstRowAdd: 'Can\'t add section to first row.',

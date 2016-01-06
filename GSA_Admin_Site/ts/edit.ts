@@ -12,7 +12,7 @@ class EditSection {
 
 const home: EditSection = new EditSection();
 
-const animationTime: number = 500;
+const animationTime: number = 250;
 
 home.errors = {
     mustBeSelected: 'You must select a row and a section',
