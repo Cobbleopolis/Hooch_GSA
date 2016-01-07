@@ -84,8 +84,8 @@ app.put('/updateHomeSection', function(req, res, next) {
                     throw err;
                 }
                 res.status(200).send(rows);
+                connection.release();
             });
-        connection.release();
     });
 });
 

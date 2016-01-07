@@ -71,49 +71,60 @@ function logOut() {
     });
     return false;
 }
-var ErrorHandle = (function () {
-    function ErrorHandle() {
-    }
-    ErrorHandle.errorBefore = function (mount, errorMsg, callback) {
+var MessageHandle;
+(function (MessageHandle) {
+    var MessageType;
+    (function (MessageType) {
+        MessageType.NEUTRAL = 'neutral';
+        MessageType.INFO = 'info';
+        MessageType.POSITIVE = 'positive';
+        MessageType.NEGATIVE = 'negative';
+    })(MessageType = MessageHandle.MessageType || (MessageHandle.MessageType = {}));
+    function messageBefore(mount, errorMsg, messageType, callback) {
         var msg = $(document.createElement('p'));
-        msg.addClass('message error');
+        msg.addClass('message ' + messageType);
         msg.text(errorMsg);
         msg.insertBefore(mount);
         if (callback)
             callback(msg, mount);
         return msg;
-    };
-    ErrorHandle.errorAfter = function (mount, errorMsg, callback) {
+    }
+    MessageHandle.messageBefore = messageBefore;
+    function messageAfter(mount, errorMsg, messageType, callback) {
         var msg = $(document.createElement('p'));
-        msg.addClass('message error');
+        msg.addClass('message ' + messageType);
         msg.text(errorMsg);
         msg.insertAfter(mount);
         if (callback)
             callback(msg, mount);
         return msg;
-    };
-    ErrorHandle.errorBeforeWithBreak = function (mount, errorMsg, callback) {
-        var error = this.errorBefore(mount, errorMsg, callback);
-        $(document.createElement('hr')).insertAfter(error);
-        return error;
-    };
-    ErrorHandle.errorAfterWithBreak = function (mount, errorMsg, callback) {
-        var error = this.errorAfter(mount, errorMsg, callback);
-        $(document.createElement('hr')).insertBefore(error);
-        return error;
-    };
-    ErrorHandle.removeError = function (error, callback) {
-        error.remove();
+    }
+    MessageHandle.messageAfter = messageAfter;
+    function messageBeforeWithBreak(mount, errorMsg, messageType, callback) {
+        var message = MessageHandle.messageBefore(mount, errorMsg, messageType, callback);
+        $(document.createElement('hr')).insertAfter(message);
+        return message;
+    }
+    MessageHandle.messageBeforeWithBreak = messageBeforeWithBreak;
+    function messageAfterWithBreak(mount, errorMsg, messageType, callback) {
+        var message = MessageHandle.messageAfter(mount, errorMsg, messageType, callback);
+        $(document.createElement('hr')).insertBefore(message);
+        return message;
+    }
+    MessageHandle.messageAfterWithBreak = messageAfterWithBreak;
+    function messageError(message, callback) {
+        message.remove();
         if (callback)
             callback();
-    };
-    ErrorHandle.removeAllErrors = function (callback) {
-        $('p.message.error').remove();
+    }
+    MessageHandle.messageError = messageError;
+    function removeAllMessages(callback) {
+        $('p.message').remove();
         if (callback)
             callback();
-    };
-    return ErrorHandle;
-})();
+    }
+    MessageHandle.removeAllMessages = removeAllMessages;
+})(MessageHandle || (MessageHandle = {}));
 var Color = (function () {
     function Color(value) {
         this.color = value;

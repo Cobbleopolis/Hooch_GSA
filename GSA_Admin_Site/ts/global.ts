@@ -85,45 +85,52 @@ function logOut() {
     return false;
 }
 
-class ErrorHandle {
+module MessageHandle {
 
-    static errorBefore(mount: JQuery, errorMsg: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
+    export module MessageType {
+        export const NEUTRAL: string = 'neutral';
+        export const INFO: string = 'info';
+        export const POSITIVE: string = 'positive';
+        export const NEGATIVE: string = 'negative';
+    }
+
+    export function messageBefore(mount: JQuery, errorMsg: string, messageType: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
         var msg = $(document.createElement('p'));
-        msg.addClass('message error');
+        msg.addClass('message ' + messageType);
         msg.text(errorMsg);
         msg.insertBefore(mount);
         if (callback) callback(msg, mount);
         return msg;
     }
 
-    static errorAfter(mount: JQuery, errorMsg: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
+    export function messageAfter(mount: JQuery, errorMsg: string, messageType: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
         var msg = $(document.createElement('p'));
-        msg.addClass('message error');
+        msg.addClass('message ' + messageType);
         msg.text(errorMsg);
         msg.insertAfter(mount);
         if (callback) callback(msg, mount);
         return msg;
     }
 
-    static errorBeforeWithBreak(mount: JQuery, errorMsg: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
-        var error = this.errorBefore(mount, errorMsg, callback);
-        $(document.createElement('hr')).insertAfter (error);
-        return error;
+    export function messageBeforeWithBreak(mount: JQuery, errorMsg: string, messageType: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
+        var message = MessageHandle.messageBefore(mount, errorMsg, messageType, callback);
+        $(document.createElement('hr')).insertAfter(message);
+        return message;
     }
 
-    static errorAfterWithBreak(mount: JQuery, errorMsg: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
-        var error = this.errorAfter(mount, errorMsg, callback);
-        $(document.createElement('hr')).insertBefore(error);
-        return error;
+    export function messageAfterWithBreak(mount: JQuery, errorMsg: string, messageType: string, callback?: (error?: JQuery, mount?: JQuery) => void): JQuery {
+        var message = MessageHandle.messageAfter(mount, errorMsg, messageType, callback);
+        $(document.createElement('hr')).insertBefore(message);
+        return message;
     }
 
-    static removeError(error: JQuery, callback?: () => void) {
-        error.remove();
+    export function messageError(message: JQuery, callback?: () => void) {
+        message.remove();
         if (callback) callback();
     }
 
-    static removeAllErrors(callback?: () => void) {
-        $('p.message.error').remove();
+    export function removeAllMessages(callback?: () => void) {
+        $('p.message').remove();
         if (callback) callback();
     }
 }

@@ -5,7 +5,7 @@ $(function () {
     loginForm = $('#loginForm');
     loginForm.submit(function (event) {
         event.preventDefault();
-        ErrorHandle.removeAllErrors();
+        MessageHandle.removeAllMessages();
         var data = {};
         var values = $(this).serializeArray();
         //console.log(values);
@@ -26,11 +26,11 @@ $(function () {
             error: function (res) {
                 if (res.status === 401)
                     //ErrorHandle.prependError(loginForm, 'Incorrect Username/Password');
-                    ErrorHandle.errorBeforeWithBreak(loginForm, 'Incorrect Username/Password');
+                    MessageHandle.messageBeforeWithBreak(loginForm, 'Incorrect Username/Password', MessageHandle.MessageType.NEGATIVE);
                 else if (res.status === 500)
-                    ErrorHandle.errorBeforeWithBreak(loginForm, 'There was an internal server error while logging in');
+                    MessageHandle.messageBeforeWithBreak(loginForm, 'There was an internal server error while logging in', MessageHandle.MessageType.NEGATIVE);
                 else
-                    ErrorHandle.errorBeforeWithBreak(loginForm, 'Something went wrong while logging in');
+                    MessageHandle.messageBeforeWithBreak(loginForm, 'Something went wrong while logging in', MessageHandle.MessageType.NEGATIVE);
             },
             complete: function (res) {
                 body.removeClass('loading');
